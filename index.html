@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OLSHCO Student Record System</title>
+<link rel="icon" type="image/png" href="includes/olshc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img class="brand-logo" src="includes/olshc.png" alt="OLSHCO logo">
+      <span class="brand-name">OLSHCO<small>Student Record System</small></span>
+    </div>
+    <div class="topbar-date" id="todayDate"></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>OLSHCO Student Record System</h1>
+    <p>Register students, keep their details current, and archive records you no longer need.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="stats">
+    <div class="stat">
+      <span class="stat-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </span>
+      <div><div class="stat-value" id="statTotal">0</div><div class="stat-label">Active students</div></div>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </span>
+      <div><div class="stat-value" id="statPrograms">0</div><div class="stat-label">Programs offered</div></div>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
+      </span>
+      <div><div class="stat-value" id="statArchived">–</div><div class="stat-label">Archived records</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2 id="formTitle">Student details</h2>
+        <p class="card-sub">Fill in all three fields to save a record.</p>
+      </div>
+    </div>
+    <form id="studentForm">
+      <input type="hidden" id="recordId">
+      <label>Student ID
+        <input type="text" id="student_id" placeholder="e.g. 25-00206" required>
+      </label>
+      <label>Name
+        <input type="text" id="name" placeholder="e.g. Danilo Cruz" required>
+      </label>
+      <label>Program
+        <input type="text" id="program" placeholder="e.g. BS Information Technology" required>
+      </label>
+      <div class="btn-row">
+        <button type="submit" id="submitBtn">Create Record</button>
+        <button type="button" id="cancelBtn" class="secondary hidden">Cancel Edit</button>
+      </div>
+    </form>
+  </section>
+
+  <div id="feedback" class="feedback hidden"></div>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2>Student records</h2>
+        <p class="card-sub" id="resultCount">Loading records…</p>
+      </div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="searchInput" placeholder="Search by ID, name, or program">
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table id="studentTable">
+        <thead>
+          <tr><th>ID</th><th>Student ID</th><th>Name</th><th>Program</th><th>Updated</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="6" class="empty">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="archive-toggle">
+    <button type="button" id="showArchive">Show Archived Records</button>
+  </div>
+  <section id="archiveSection" class="card hidden">
+    <div class="card-head">
+      <div>
+        <h2>Archived records</h2>
+        <p class="card-sub">Records removed from the active list.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table id="archiveTable">
+        <thead>
+          <tr><th>Archive ID</th><th>Student ID</th><th>Name</th><th>Program</th><th>Deleted At</th></tr>
+        </thead>
+        <tbody id="archiveBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">Our Lady of the Sacred Heart College of Guimba, Inc. &copy; <span id="year"></span></footer>
+
+   <script src="script.js"></script>
+</body>
+</html>
